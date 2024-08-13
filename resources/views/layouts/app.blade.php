@@ -16,6 +16,24 @@
 
         <!-- Styles -->
         @yield('head-style')
+
+        <style>
+            a.card-clickable-body{
+                text-decoration: none;
+                color: rgb(29, 27, 27);
+            }
+            img.img-article{
+                width: 100%;
+                aspect-ratio: 11/10;
+            }
+            .navigation-menu {
+                position: fixed; /* or absolute, fixed, sticky */
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000; /* Adjust the value as needed */
+            }
+        </style>
         
         @livewireStyles
     </head>
@@ -23,7 +41,9 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+            <div class="navigation-menu">
+                @livewire('navigation-menu')
+            </div>
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -45,6 +65,7 @@
         </div>
 
         @stack('modals')
+        @stack('scripts')
 
         @livewireScripts
     </body>

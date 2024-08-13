@@ -56,7 +56,7 @@ class Article extends Model
     public function getThumbnailUrlAttribute()
     {
         return $this->thumbnail_path
-            ? asset('storage/' . $this->thumbnail_path)
+            ? asset($this->thumbnail_path)
             : asset('images/no-thumbnail.png');
     }
 
@@ -83,6 +83,11 @@ class Article extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function getShortContentAttribute()
+    {
+        return substr($this->content, 0, 100) . '...';
     }
 
 

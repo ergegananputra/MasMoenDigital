@@ -23,12 +23,4 @@ class Image extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function getPathAttribute($value)
-    {
-        return $value
-            ? asset('storage/' . $value)
-            : asset('images/no-thumbnail.png');
-    }
-
-
 }
