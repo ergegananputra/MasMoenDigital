@@ -121,7 +121,9 @@
                 <h1>{{ $article->title }}</h1>
 
                 {{-- Show date --}}
-                <p class="text-muted mb-2"><i class="bi bi-clock mr-3"></i>{{ $article->created_at->diffForHumans() }}</p>
+                <p class="text-muted mb-2"><i class="bi bi-clock mr-3"></i>{{ $article->created_at->diffForHumans() }}
+                    @if($article->created_at != $article->updated_at), Edited {{$article->updated_at->diffForHumans()}}@endif
+                </p>
 
                 {{-- Show content --}}
 

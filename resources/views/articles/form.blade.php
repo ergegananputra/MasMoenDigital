@@ -128,6 +128,10 @@
 
             @isset($isEdit)
                 <h1 class="text-4xl font-bold my-3">Edit Artikel</h1>
+
+                <div class="alert alert-warning mt-4" role="alert"> <i class="bi bi-exclamation-circle"> </i>
+                    Merubah judul artikel akan merubah URL artikel. Pastikan untuk memperbarui URL artikel di sumber lain jika diperlukan
+                </div>
             @else
                 <h1 class="text-4xl font-bold my-3">Tambah Artikel</h1>
             @endisset
@@ -475,7 +479,9 @@
                     <label for="tags">Tags</label>
                     <select name="tags[]" id="tags" class="form-control" multiple>
                         @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            <option value="{{ $tag->id }}" {{ $article->tags->contains($tag->id) ? 'selected' : '' }}>
+                                {{ $tag->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>

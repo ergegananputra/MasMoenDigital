@@ -187,24 +187,94 @@ class ArticlesController extends Controller
         $tags = $request->tags;
 
         // saving the thumbnail
-        $thumbnail = $request->file('thumbnail');
-        $title = $request->title;
-        $thumbnailExtension = $thumbnail->extension();
-        $thumbnailName = $this->slugify($title . "-" . $thumbnail->getClientOriginalName());
-        $thumbnailFilename = $thumbnailName. "." . $thumbnailExtension;
-        $thumbnailPath = $thumbnail->storeAs('public/uploads', $thumbnailFilename);
 
-        $embed_gmaps_link = $request->google_maps_embeded;
-        if ($embed_gmaps_link) {
-            if (Str::startsWith($embed_gmaps_link, 'https://www.google.com/maps/embed')) {
-                $embed_gmaps_link = $request->embed_gmaps_link;
-            } else if (Str::startsWith($embed_gmaps_link, '<iframe')) {
-                $url = explode('"', $embed_gmaps_link)[1];
-                $embed_gmaps_link = $url;
-            }
-        } else {
-            $embed_gmaps_link = "";
+        // check if there is a new thumbnail
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail = $request->file('thumbnail');
+            $title = $request->title;
+            $thumbnailExtension = $thumbnail->extension();
+            $thumbnailName = $this->slugify($title . "-" . $thumbnail->getClientOriginalName());
+            $thumbnailFilename = $thumbnailName. "." . $thumbnailExtension;
+            $thumbnailPath = $thumbnail->storeAs('public/uploads', $thumbnailFilename);
+
+            $article->thumbnail_path = Storage::url($thumbnailPath);
         }
+
+
+        // check if the embed_gmaps_link is new
+        if ($request->google_maps_embeded != $article->google_maps_embed) {
+            $embed_gmaps_link = $request->google_maps_embeded;
+            if ($embed_gmaps_link) {
+                if (Str::startsWith($embed_gmaps_link, 'https://www.google.com/maps/embed')) {
+                    $embed_gmaps_link = $request->embed_gmaps_link;
+                } else if (Str::startsWith($embed_gmaps_link, '<iframe')) {
+                    $url = explode('"', $embed_gmaps_link)[1];
+                    $embed_gmaps_link = $url;
+                }
+            } else {
+                $embed_gmaps_link = "";
+            }
+            $article->google_maps_embed = $embed_gmaps_link;
+        }
+
+        // check if the title is new and update the slug
+        if ($request->title != $article->title) {
+            $article->title = $request->title;
+            $article->slug = $this->slugify($request->title);
+        }
+
+        // saving the article
+        $article->content = $request->content;
+        $article->whatsapp_name = $request->whatsapp_name;
+        $article->whatsapp_number = $request->whatsapp_number;
+        $article->price = $request->price;
+        $article->unit = $request->unit;
+        $article->address = $request->address;
+        $article->google_maps = $request->google_maps;
+
+        $article->category_id = $request->category;
+
+        $article->save();
+
+        // saving the tags
+        $article->tags()->detach();
+        foreach ($tags as $tagId) {
+            // find or create the tag
+            $tag = Tag::find($tagId);
+            if (!$tag) {
+                $tag = Tag::create([
+                    'name' => $tagId,
+                    'slug' => $this->slugify($tagId),
+                ]);
+            }
+
+            // attach the tag to the article
+            $article->tags()->attach($tag->id);
+
+            // save the tag
+            $tag->save();
+        }
+
+        $title = $article->title;
+
+        // saving the photos
+        if($photos != null) {
+            foreach ($photos as $photo) {
+                $originalName = $photo->getClientOriginalName();
+                $extension = $photo->extension();
+                $photoName = $this->slugify($title . "-". $originalName);
+                $photoFilename = $photoName. "." . $extension;
+                $photoPath = $photo->storeAs('public/uploads', $photoFilename);
+                $article->images()->create([
+                    'path' => Storage::url($photoPath),
+                    'name' => $originalName,
+                    'slug' => $this->slugify($photoName),
+                    'article_id' => $article->id,
+                ]);
+            }
+        }
+
+        return redirect()->route('management.articles.show', $article);
     }
 
     /**
@@ -226,7 +296,8 @@ class ArticlesController extends Controller
 
     private function slugify(string $text): string
     {
-        $slug = (new SlugNormalizer())->normalize($text);
+        $date = now()->format('Y-m-ds');
+        $slug = (new SlugNormalizer())->normalize($text . "-" . $date);
         return $slug;
     }
 }
