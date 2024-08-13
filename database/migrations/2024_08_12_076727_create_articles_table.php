@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->text('content');
-            $table->string('whatsapp_name');
-            $table->string('whatsapp_number');
-            $table->decimal('price', 32, 2);
-            $table->string('unit');
-            $table->string('address');
-            $table->string('google_maps');
-            $table->text('google_maps_embed');
+            $table->string('whatsapp_name')->nullable();
+            $table->string('whatsapp_number')->nullable();
+            $table->decimal('price', 32, 2)->nullable();
+            $table->string('unit')->nullable();
+            $table->string('address')->nullable();
+            $table->string('google_maps')->nullable();
+            $table->text('google_maps_embed')->nullable();
 
             $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);

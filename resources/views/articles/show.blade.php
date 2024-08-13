@@ -182,22 +182,26 @@
 
                         <div class="card-text">
                             {{-- Article Contact Whatsapp --}}
-                            <a target="_blank" href="{{$article->getWhatsappLinkAttribute()}}" class="btn btn-success mb-2 w-100">
-                                <i class="bi bi-whatsapp mx-2"></i>Hubungi narahubung {{ $article->whatsapp_name }}
-                            </a>
+                            @if ($article->whatsapp_number != null && $article->whatsapp_name != null)
+                                <a target="_blank" href="{{$article->getWhatsappLinkAttribute()}}" class="btn btn-success mb-2 w-100">
+                                    <i class="bi bi-whatsapp mx-2"></i>Hubungi narahubung {{ $article->whatsapp_name }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 {{-- Harga Penawaran --}}
-                <div class="card personalize-card mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Penawaran</h5>
-                        <p class="card-text">Berikut adalah informasi harga produk yang ditawarkan oleh pemilik</p>
-                        <p class="card-text price">{{$article->getFormattedPriceAttribute()}}</p>
-                        <i>per {{$article->unit}}</i>
+                @if ($article->price != null)
+                    <div class="card personalize-card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Penawaran</h5>
+                            <p class="card-text">Berikut adalah informasi harga produk yang ditawarkan oleh pemilik</p>
+                            <p class="card-text price">{{$article->getFormattedPriceAttribute()}}</p>
+                            <i>per {{$article->unit}}</i>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 

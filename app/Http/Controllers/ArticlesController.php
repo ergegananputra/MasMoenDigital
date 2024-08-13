@@ -60,11 +60,11 @@ class ArticlesController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'category' => 'required|exists:categories,id',
-            'whatsapp_name' => 'required|string',
-            'whatsapp_number' => 'required|numeric',
+            'whatsapp_name' => 'nullable|string', // nullable
+            'whatsapp_number' => 'nullable|numeric', // nullable
             'content' => 'required',
-            'price' => 'required|numeric',
-            'unit' => 'required|string',
+            'price' => 'nullable|numeric', // nullable
+            'unit' => 'nullable|string', // nullable
             'address' => 'nullable|string',
             'google_maps' => 'nullable|string',
             'google_maps_embeded' => 'nullable|string',
