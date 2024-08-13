@@ -87,7 +87,8 @@ class Article extends Model
 
     public function getShortContentAttribute()
     {
-        return substr($this->content, 0, 100) . '...';
+        $cleanTextWithoutHTML = strip_tags($this->content);
+        return substr($cleanTextWithoutHTML, 0, 100) . '...';
     }
 
 

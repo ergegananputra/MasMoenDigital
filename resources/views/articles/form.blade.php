@@ -479,9 +479,14 @@
                     <label for="tags">Tags</label>
                     <select name="tags[]" id="tags" class="form-control" multiple>
                         @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}" {{ $article->tags->contains($tag->id) ? 'selected' : '' }}>
-                                {{ $tag->name }}
-                            </option>
+                            @isset($article)
+                                <option value="{{ $tag->id }}" {{ $article->tags->contains($tag->id) ? 'selected' : '' }}>
+                                    {{ $tag->name }}
+                                </option>
+                            @else
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endisset
+                            
                         @endforeach
                     </select>
                 </div>
@@ -534,3 +539,42 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#content').summernote({
+            height: 300,
+            minHeight: 500,
+            maxHeight: null,
+            focus: true,
+            callbacks: {
+                onImageUpload: function(files) {
+                    var $editor = $(this);
+                    var data = new FormData();
+                    data.append('file', files[0]);
+                    $.ajax({
+                        url: '{{ route('summernote.upload') }}',
+                        method: 'POST',
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            $editor.summernote('insertImage', response.url);
+                        },
+                        error: function() {
+                            console.error('Image upload failed');
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+@endpush

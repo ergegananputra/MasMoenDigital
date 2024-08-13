@@ -18,21 +18,53 @@
         @yield('head-style')
 
         <style>
-            a.card-clickable-body{
-                text-decoration: none;
-                color: rgb(29, 27, 27);
-            }
-            img.img-article{
-                width: 100%;
-                aspect-ratio: 11/10;
-            }
             .navigation-menu {
                 position: fixed; /* or absolute, fixed, sticky */
                 top: 0;
                 left: 0;
                 right: 0;
                 z-index: 1000; /* Adjust the value as needed */
+                height: auto; /* Ensure it does not cover the entire viewport */
             }
+
+            .navigation-menu a{
+                text-decoration: none;
+            }
+            .text-logo-nav {
+                text-decoration: none;
+
+                font-weight: bolder;
+                background: linear-gradient(to right, #007BFF, #501bef);
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 1.3rem;
+                transition: all 0.6s ease;
+            }
+            a.card-clickable-body{
+                text-decoration: none;
+                color: rgb(29, 27, 27);
+            }
+            .img-container {
+                width: 100%;
+                aspect-ratio: 11/10;
+
+                transition: 0.3s ease-in-out;
+
+                /* clip */
+                overflow: hidden;
+                
+                transition: 0.3s ease-in-out;
+            }
+
+            .img-container img {
+                transition: 0.3s ease-in-out;
+            }
+
+            .img-container img:hover {
+                transform: scale(1.2);
+                transition: 0.3s ease-in-out;
+            }
+    
         </style>
         
         @livewireStyles
@@ -65,8 +97,31 @@
         </div>
 
         @stack('modals')
-        @stack('scripts')
-
         @livewireScripts
+
+        @stack('scripts')
     </body>
+
+    <script>
+        function copyLink(url) {
+                // Create a temporary input element
+                var tempInput = document.createElement('input');
+                tempInput.value = url;
+                document.body.appendChild(tempInput);
+        
+                // Select the input value
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // For mobile devices
+        
+                // Copy the text inside the input
+                document.execCommand('copy');
+        
+                // Remove the temporary input element
+                document.body.removeChild(tempInput);
+        
+                // Optionally, show a message to the user
+                alert('Berhasil menyalin link!' + '\n' + url);
+            }
+        
+    </script>
 </html>

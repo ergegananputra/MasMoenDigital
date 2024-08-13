@@ -8,11 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
- 
+        .safezone {
+            padding: 10vh 0vw;
+        }
     </style>
 @endsection
 
 @section('content')
+<div class="safezone">
     <div class="container">
         <h1 class="text-4xl font-bold">Kelola Kategori</h1>
         
@@ -30,9 +33,8 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </form>
-       
-        
 
+        <br>
 
         <h4>Categories</h4>
         
@@ -67,4 +69,5 @@
         </table>
 
     </div>
+</div>
 @endsection

@@ -1,11 +1,13 @@
 <div class="col">
     <div class="card h-100">
         <a href="{{route('management.articles.show', $article)}}" class="card-clickable-body">
-            <img src="{{asset($article->getThumbnailUrlAttribute())}}" class="card-img-top img-article" alt="...">
+            <div class="img-container">
+                <img src="{{asset($article->getThumbnailUrlAttribute())}}" class="card-img-top img-article" alt="{{$article->slug}}">
+            </div>
             <div class="card-body">
                 <h5 class="card-title
                 ">{{ $article->title }}</h5>
-                <p class="card-text">{{ $article->getShortContentAttribute() }}</p>
+                <p class="card-text">{!! $article->getShortContentAttribute() !!}</p>
     
                 {{-- show the tags --}}
                 <div class="d-flex flex-wrap">
@@ -20,16 +22,23 @@
             </div>
         </a>
         <div class="card-footer">
-            <a href="{{ route('management.articles.edit', $article->id) }}" class="btn btn-warning">
-                <i class="bi bi-pencil-square mx-2"></i>
-            </a>
-            <form action="{{ route('management.articles.destroy', $article->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">
-                    <i class="bi bi-trash mx-2"></i>
-                </button>
-            </form>
+            {{-- show share button --}}
+            <button class="btn btn-secondary" onclick="copyLink('{{ route('articles.show', $article) }}')">
+                <i class="bi bi-share-fill"></i>
+            </button>
+
+            @isset($action)
+                <a href="{{ route('management.articles.edit', $article->id) }}" class="btn btn-warning">
+                    <i class="bi bi-pencil-square mx-2"></i>
+                </a>
+                <form action="{{ route('management.articles.destroy', $article) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash mx-2"></i>
+                    </button>
+                </form>
+            @endisset
 
             {{-- Show Author --}}
             <div class="btn">

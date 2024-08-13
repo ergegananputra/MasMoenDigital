@@ -127,7 +127,7 @@
 
                 {{-- Show content --}}
 
-                <p>{{ $article->content }}</p>
+                <p>{!! $article->content !!}</p>
 
 
                 @if($article->address != null)

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -17,9 +19,26 @@ class ArticlesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('articles.index');
+        $category = $request->category;
+        $keyword = $request->search;
+
+        $query = Article::query();
+
+        if (!is_null($category)) {
+            $query->orWhere('category_id', $category);
+        }
+
+        if (!is_null($keyword)) {
+            $query->orWhere('title', 'like', '%' . $keyword . '%');
+            $query->orWhere('content', 'like', '%' . $keyword . '%');
+        }
+
+        $articles = $query->orderBy('updated_at', 'desc')->paginate(12);
+
+        $categories = Category::all();
+        return view('articles.index', compact('articles', 'categories'));
     }
 
     /**
@@ -77,11 +96,13 @@ class ArticlesController extends Controller
             $embed_gmaps_link = "";
         }
 
+        $clean_content = $this->purify($request->content);
+
         // saving the article
         $article = Article::create([
             "slug" => $this->slugify($title),
             "title" => $title,
-            "content" => $request->content,
+            "content" => $clean_content,
             "whatsapp_name" => $request->whatsapp_name,
             "whatsapp_number" => $request->whatsapp_number,
             "price" => $request->price,
@@ -223,8 +244,10 @@ class ArticlesController extends Controller
             $article->slug = $this->slugify($request->title);
         }
 
+        $clean_content = $this->purify($request->content);
+
         // saving the article
-        $article->content = $request->content;
+        $article->content = $clean_content;
         $article->whatsapp_name = $request->whatsapp_name;
         $article->whatsapp_number = $request->whatsapp_number;
         $article->price = $request->price;
@@ -282,7 +305,13 @@ class ArticlesController extends Controller
      */
     public function destroy(string $slug)
     {
-        //
+        $article = Article::where('slug', $slug)->first();
+        try {
+            $article->delete();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+        return redirect()->route('management.index');
     }
 
     public function destroyPhoto(Article $article, string $photoID)
@@ -299,5 +328,14 @@ class ArticlesController extends Controller
         $date = now()->format('Y-m-ds');
         $slug = (new SlugNormalizer())->normalize($text . "-" . $date);
         return $slug;
+    }
+
+    private function purify(string $html) : string
+    {
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]');
+        $purifier = new HTMLPurifier($config);
+
+        return $purifier->purify($html);
     }
 }

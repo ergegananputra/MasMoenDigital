@@ -64,15 +64,20 @@
                 </div>
             
                 <div class="col-12 col-md-3 icons-button mt-3 mt-md-0 d-flex flex-column">
-                    <a href="" class="btn side-btn d-flex align-items-center mb-2">
-                        <p class="mb-0">Tambah Tag</p>
-                        <i class="bi bi-tag"></i> 
-                    </a>
-            
-                    <a href="{{route('management.categories.index')}}" class="btn side-btn d-flex align-items-center mb-2">
-                        <p class="mb-0">Tambah Kategori</p>
-                        <i class="bi bi-archive"></i> 
-                    </a>
+                    @auth
+                        @if (Auth::user()->isAdmin())
+                            <a href="" class="btn side-btn d-flex align-items-center mb-2">
+                                <p class="mb-0">Tambah Tag</p>
+                                <i class="bi bi-tag"></i> 
+                            </a>
+                    
+                            <a href="{{route('management.categories.index')}}" class="btn side-btn d-flex align-items-center mb-2">
+                                <p class="mb-0">Tambah Kategori</p>
+                                <i class="bi bi-archive"></i> 
+                            </a>
+                        @endif
+                    @endauth
+                    
             
                     <a href="{{route('management.articles.create')}}" class="btn side-btn d-flex align-items-center">
                         <p class="mb-0">Tambah Artikel</p>
@@ -84,11 +89,34 @@
     </div>
 
     <div class="container mt-5">
-        <h4>Artikel</h4>
+        <h2>Artikel</h2>
+
+        {{-- Search & Filter --}}
+        <form action="{{ route('management.index') }}" method="GET">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select" name="category">
+                        <option value="">Pilih Kategori</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Cari artikel" name="search" value="{{ request('search') }}">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <p class="mt-3"><i>Sebanyak {{ $articles->total() }} artikel ditemukan</i></p>
         
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach ($articles as $article)
-                @include('components.article_card', ['article' => $article])
+                @include('components.article_card', ['article' => $article, 'action' => true])
             @endforeach
         </div>
     </div>
