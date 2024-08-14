@@ -1,6 +1,6 @@
 <div class="col">
     <div class="card h-100">
-        <a href="{{route('management.articles.show', $article)}}" class="card-clickable-body">
+        <a href="{{route('articles.show', $article)}}" class="card-clickable-body">
             <div class="img-container">
                 <img src="{{asset($article->getThumbnailUrlAttribute())}}" class="card-img-top img-article" alt="{{$article->slug}}">
             </div>
@@ -27,18 +27,22 @@
                 <i class="bi bi-share-fill"></i>
             </button>
 
-            @isset($action)
-                <a href="{{ route('management.articles.edit', $article->id) }}" class="btn btn-warning">
-                    <i class="bi bi-pencil-square mx-2"></i>
-                </a>
-                <form action="{{ route('management.articles.destroy', $article) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash mx-2"></i>
-                    </button>
-                </form>
-            @endisset
+            @auth
+                @if ($article->user_id == Auth::user()->id || Auth::user()->isAdmin())
+                    @isset($action)
+                        <a href="{{ route('management.articles.edit', $article->id) }}" class="btn btn-warning">
+                            <i class="bi bi-pencil-square mx-2"></i>
+                        </a>
+                        <form action="{{ route('management.articles.destroy', $article) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash mx-2"></i>
+                            </button>
+                        </form>
+                    @endisset
+                @endif
+            @endauth
 
             {{-- Show Author --}}
             <div class="btn">

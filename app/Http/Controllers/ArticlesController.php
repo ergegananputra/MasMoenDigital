@@ -156,7 +156,7 @@ class ArticlesController extends Controller
             }
         }
 
-        return redirect()->route('management.index');
+        return redirect()->route('articles.show', $article);
     }
 
     /**
@@ -297,7 +297,7 @@ class ArticlesController extends Controller
             }
         }
 
-        return redirect()->route('management.articles.show', $article);
+        return redirect()->route('articles.show', $article);
     }
 
     /**

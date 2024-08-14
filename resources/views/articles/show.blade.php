@@ -167,16 +167,28 @@
                     <div class="card-body">
                         <h5 class="card-title">Author</h5>
                         <p class="card-text">{{ $article->user->name }}</p>
-                        <a href="{{route('management.articles.edit', $article)}}" class="btn btn-warning">
-                            <i class="bi bi-pencil-square mx-2"></i>
-                        </a>
-                        <form action="{{route('management.articles.destroy', $article)}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash mx-2"></i>
-                            </button>
-                        </form>
+                        {{-- show share button --}}
+                        <button class="btn btn-secondary" onclick="copyLink('{{ route('articles.show', $article) }}')">
+                            <i class="bi bi-share-fill"></i>
+                        </button>
+
+                        @auth
+                            @if (Auth::user()->id == $article->user_id || Auth::user()->isAdmin())
+                                {{-- Show edit and delete button --}}
+                                <a href="{{route('management.articles.edit', $article)}}" class="btn btn-warning">
+                                    <i class="bi bi-pencil-square mx-2"></i>
+                                </a>
+                                <form action="{{route('management.articles.destroy', $article)}}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash mx-2"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+
+                        
 
                         <p class="card-text mt-2">Untuk melakukan penawaran Anda dapat menghubungi kontak dibawah ini melalui Whatsapp.</p>
 
