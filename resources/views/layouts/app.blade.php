@@ -74,6 +74,14 @@
                 -webkit-backdrop-filter: blur(10px); /* For Safari */
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
             }
+
+            .card-title, .card-text {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
     
         </style>
         
