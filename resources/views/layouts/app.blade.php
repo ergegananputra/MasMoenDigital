@@ -58,6 +58,7 @@
 
             .img-container img {
                 transition: 0.3s ease-in-out;
+                object-fit: cover;
             }
 
             .img-container img:hover {

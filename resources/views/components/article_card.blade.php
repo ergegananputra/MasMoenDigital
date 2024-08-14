@@ -11,7 +11,7 @@
     
                 {{-- show the tags --}}
                 <div class="d-flex flex-wrap">
-                    @foreach ($article->tags as $tag)
+                    @foreach ($article->tags->take(5) as $tag)
                         <span class="badge bg-secondary mr-2">{{ $tag->name }}</span>
                     @endforeach
                 </div>
