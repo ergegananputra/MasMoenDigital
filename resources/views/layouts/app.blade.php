@@ -64,6 +64,13 @@
                 transform: scale(1.2);
                 transition: 0.3s ease-in-out;
             }
+
+            .mmd-navbar {
+                background-color: rgba(255, 255, 255, 0.8) !important; /* Semi-transparent background */
+                backdrop-filter: blur(10px); /* Blur effect */
+                -webkit-backdrop-filter: blur(10px); /* For Safari */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+            }
     
         </style>
         

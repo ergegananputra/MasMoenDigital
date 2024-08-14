@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\SummernoteController;
 use App\Http\Middleware\AdminPrivileges;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ArticlesController::class, 'index'])->name('home');
-
+Route::get('/', [DashboardController::class, 'index'])->name('home');
+Route::get('/beranda', [DashboardController::class, 'index'])->name('dashboard');
 Route::resource('articles', ArticlesController::class)->only('index', 'show');
 
 Route::middleware([
