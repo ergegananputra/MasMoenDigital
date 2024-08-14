@@ -59,6 +59,8 @@
             .img-container img {
                 transition: 0.3s ease-in-out;
                 object-fit: cover;
+                width: 100%; /* Ensures the image fills the width of the container */
+                height: 100%; /* Ensures the image fills the height of the container */
             }
 
             .img-container img:hover {
