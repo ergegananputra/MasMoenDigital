@@ -84,8 +84,9 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-    
         </style>
+
+        @include('utils.content-rich-style')
         
         @livewireStyles
     </head>

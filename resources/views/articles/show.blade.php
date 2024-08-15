@@ -85,6 +85,8 @@
         }
     </style>
 
+    @include('utils.content-rich-style')
+
     {{-- Lightbox --}}
     @include('utils.lightbox')
 @endsection
@@ -126,8 +128,9 @@
                 </p>
 
                 {{-- Show content --}}
-
-                <p>{!! $article->content !!}</p>
+                <div class="content-rich">
+                    <p>{!! $article->content !!}</p>
+                </div>
 
 
                 @if($article->address != null)

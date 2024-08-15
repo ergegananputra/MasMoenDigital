@@ -309,7 +309,7 @@
                 
 
                 {{-- Content --}}
-                <div class="form-group col-md-12 item row">
+                <div class="form-group col-md-12 item row content-rich">
                     <label for="content">Konten</label>
                     <div class="col-md-12">
                         <textarea name="content" id="content" class="form-control"
