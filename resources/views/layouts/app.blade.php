@@ -66,7 +66,7 @@
             }
 
             .img-container img:hover {
-                transform: scale(1.2);
+                transform: scale(1.15);
                 transition: 0.3s ease-in-out;
             }
 
@@ -84,6 +84,16 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
+            .card {
+                position: relative; /* Ensure the card is positioned relative for the pseudo-element */
+                outline: none;
+                border: none;
+                transition: 0.3s ease-in-out;
+                box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
+                    -10px -10px 10px rgba(255, 255, 255, 0.8); 
+            }
+
         </style>
 
         @include('utils.content-rich-style')

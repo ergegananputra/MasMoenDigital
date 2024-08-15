@@ -9,7 +9,7 @@
 
     <style>
         .safezone {
-            padding-top: 15vh;
+            padding-top: max(15vh, 15rem);
             padding-bottom: 15vh;
         }
 
@@ -20,7 +20,7 @@
             justify-content: center;
             height: 70vh; /* Full viewport height */
 
-            margin-bottom: 15vh;
+            margin-bottom: max(15vh, 15rem);
         }
 
         .frosted-glass {
@@ -33,13 +33,14 @@
             font-size: 1.2rem;
             text-align: center;
             color: rgb(0, 0, 0);
+
+            transition: all 0.6s ease;
         }
 
         .header:hover h1.text-header {
             transform: scale(1.05) translateY(-5%);
             transition: all 0.6s ease;
         }
-
 
         h1.text-header {
             font-weight: bolder;
@@ -73,7 +74,8 @@
             backdrop-filter: blur(10px); /* Blur effect */
             border-radius: 8px; /* Optional: Add rounded corners to clock items */
             margin: 6px; /* Add margin to create gutter between items */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Add glow effect */
+            box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
+                -10px -10px 10px rgba(255, 255, 255, 0.8); 
 
             transition: all 0.6s;
         }
@@ -87,9 +89,10 @@
         }
 
         .btn-register:hover {
-            filter: grayscale(70%);
+            opacity: 0.8;
+            box-shadow: 12px 12px 12px rgba(53, 83, 170, 0.5), 
+                -10px -10px 10px rgba(255, 255, 255, 0.8); 
             /* drop shadow */
-            box-shadow: 0 0 10px rgba(53, 83, 170, 0.5);
             transition: all 0.6s;
         }
 
