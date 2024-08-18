@@ -15,7 +15,7 @@
             text-align: center;
         }
 
-        .card.kategori {
+        .card.tags {
             border-radius: 16px;
             position: relative; /* Ensure the card is positioned relative for the pseudo-element */
             outline: none;
@@ -30,14 +30,14 @@
 @section('content')
 <div class="safezone">
     <div class="container">
-        <h1 class="text-4xl font-bold">Kelola Kategori</h1>
+        <h1 class="text-4xl font-bold">Kelola Tags</h1>
 
-        <div class="card kategori mb-4">
+        <div class="card tags mb-4">
             <div class="card-body">
-                @isset($category)
-                    <h4>Edit Kategori</h4>
+                @isset($tag)
+                    <h4>Edit tags</h4>
                 @else
-                    <h4>Tambahkan Kategori</h4>
+                    <h4>Tambahkan tags</h4>
                 @endisset
                 
                 @error('name')
@@ -45,29 +45,29 @@
                 @enderror
 
                 <form 
-                @isset($category)
-                    action="{{ route('management.categories.update', $category->id) }}"
+                @isset($tag)
+                    action="{{ route('management.tags.update', $tag->id) }}"
                 @else
-                    action="{{ route('management.categories.store') }}" 
+                    action="{{ route('management.tags.store') }}" 
                 @endisset
                 method="POST">
                     @csrf
                     <div class="form-group row my-3">
-                        <label for="name" class="col-md-2 col-form-label">Nama Kategori</label>
+                        <label for="name" class="col-md-2 col-form-label">Nama tags</label>
                         <div class="col-md-10">
                             <input type="text" name="name" id="name" class="form-control"
-                                @isset($category)
-                                    value="{{ $category->name }}"
+                                @isset($tag)
+                                    value="{{ $tag->name }}"
                                 @endisset
                                 >
                         </div>
                     </div>
                     
-                    @isset($category)
+                    @isset($tag)
                         @method('PUT')
                         <div class="row align-items-center mt-2">
                             <div class="col-md-2">
-                                <a href="{{ route('management.categories.index') }}" class="btn btn-secondary w-100">
+                                <a href="{{ route('management.tags.index') }}" class="btn btn-secondary w-100">
                                     <i class="bi bi-arrow-left mx-2"></i>Kembali
                                 </a>
                             </div>
@@ -103,13 +103,13 @@
             </div>
         @endif
 
-        <div class="card kategori mt-4">
+        <div class="card tags mt-4">
             <div class="card-body">
                 <h4>Categories</h4>
 
                 <!-- Search Bar -->
                 <div class="mb-3">
-                    <input type="text" id="search" class="form-control" placeholder="Cari kategori...">
+                    <input type="text" id="search" class="form-control" placeholder="Cari tags...">
                 </div>
                 
                 <div class="table-responsive">
@@ -121,17 +121,17 @@
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="categoryTable">
-                            @foreach ($categories as $category)
+                        <tbody id="tagTable">
+                            @foreach ($tags as $tag)
                                 <tr>
-                                    <th scope="row">{{ $category->id }}</th>
-                                    <td>{{ $category->name }}</td>
+                                    <th scope="row">{{ $tag->id }}</th>
+                                    <td>{{ $tag->name }}</td>
                                     <td>
                                         <div class="d-flex justify-content-end">
-                                            <a href="{{ route('management.categories.edit', $category->id) }}" class="btn btn-warning mr-4">
+                                            <a href="{{ route('management.tags.edit', $tag->id) }}" class="btn btn-warning mr-4">
                                                 <i class="bi bi-pencil-square mx-2"></i>Edit
                                             </a>
-                                            <form action="{{ route('management.categories.destroy', $category->id) }}" method="POST" class="d-inline">
+                                            <form action="{{ route('management.tags.destroy', $tag->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">
@@ -160,7 +160,7 @@
         $(document).ready(function() {
             $('#search').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
-                $('#categoryTable tr').filter(function() {
+                $('#tagTable tr').filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });

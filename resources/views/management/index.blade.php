@@ -66,7 +66,7 @@
                 <div class="col-12 col-md-3 icons-button mt-3 mt-md-0 d-flex flex-column">
                     @auth
                         @if (Auth::user()->isAdmin())
-                            <a href="" class="btn side-btn d-flex align-items-center mb-2">
+                            <a href="{{route('management.tags.index')}}" class="btn side-btn d-flex align-items-center mb-2">
                                 <p class="mb-0">Tambah Tag</p>
                                 <i class="bi bi-tag"></i> 
                             </a>

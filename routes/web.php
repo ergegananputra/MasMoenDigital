@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\SummernoteController;
+use App\Http\Controllers\TagsController;
 use App\Http\Middleware\AdminPrivileges;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::middleware([
         Route::post('/article/create/photos/upload', [SummernoteController::class, 'upload'])->name('summernote.upload');
         Route::post('articles/{article}/edit/photo/{photo_id}/destroy', [ArticlesController::class, 'destroyPhoto'])->name('management.articles.photos.destroy');
         Route::name('management')->resource('categories', CategoriesController::class)->middleware(AdminPrivileges::class);
+        Route::name('management')->resource('tags', TagsController::class)->middleware(AdminPrivileges::class);
     });
 
 

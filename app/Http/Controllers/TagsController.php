@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use League\CommonMark\Normalizer\SlugNormalizer;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        $tags = Tag::all();
+
+        return view('tags.index', compact('tags'));
     }
 
     /**
@@ -37,14 +38,14 @@ class CategoriesController extends Controller
         $name = $request->name;
         $slug = (new SlugNormalizer())->normalize($name);
 
-        Category::create([
+        Tag::create([
             'name' => $name,
             'slug' => $slug,
         ]);
 
-        session()->flash('create', 'Kategori berhasil ditambahkan');
+        session()->flash('create', 'Tag berhasil ditambahkan');
 
-        return redirect()->route('management.categories.index');
+        return redirect()->route('management.tags.index');
     }
 
     /**
@@ -60,9 +61,10 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::findOrFail($id);
-        $categories = Category::all();
-        return view('categories.index', compact('category', 'categories'));
+        $tag = Tag::findOrFail($id);
+        $tags = Tag::all();
+
+        return view('tags.index', compact('tag', 'tags'));
     }
 
     /**
@@ -74,14 +76,17 @@ class CategoriesController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->slug = (new SlugNormalizer())->normalize($request->name);
-        $category->save();
+        $name = $request->name;
+        $slug = (new SlugNormalizer())->normalize($name);
 
-        session()->flash('update', 'Kategori berhasil diperbarui');
+        Tag::findOrFail($id)->update([
+            'name' => $name,
+            'slug' => $slug,
+        ]);
 
-        return redirect()->route('management.categories.index');
+        session()->flash('update', 'Tag berhasil diperbarui');
+
+        return redirect()->route('management.tags.index');
     }
 
     /**
@@ -89,11 +94,10 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::find($id);
-        $category->delete();
+        Tag::findOrFail($id)->delete();
 
-        session()->flash('delete', 'Kategori berhasil dihapus');
+        session()->flash('delete', 'Tag berhasil dihapus');
 
-        return redirect()->route('management.categories.index');
+        return redirect()->route('management.tags.index');
     }
 }
