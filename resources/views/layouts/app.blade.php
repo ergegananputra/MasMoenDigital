@@ -42,33 +42,7 @@
                 font-size: 1.3rem;
                 transition: all 0.6s ease;
             }
-            a.card-clickable-body{
-                text-decoration: none;
-                color: rgb(29, 27, 27);
-            }
-            .img-container {
-                width: 100%;
-                aspect-ratio: 11/10;
-
-                transition: 0.3s ease-in-out;
-
-                /* clip */
-                overflow: hidden;
-                
-                transition: 0.3s ease-in-out;
-            }
-
-            .img-container img {
-                transition: 0.3s ease-in-out;
-                object-fit: cover;
-                width: 100%; /* Ensures the image fills the width of the container */
-                height: 100%; /* Ensures the image fills the height of the container */
-            }
-
-            .img-container img:hover {
-                transform: scale(1.15);
-                transition: 0.3s ease-in-out;
-            }
+            
 
             .mmd-navbar {
                 background-color: rgba(255, 255, 255, 0.8) !important; /* Semi-transparent background */
@@ -77,25 +51,11 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
             }
 
-            .card-title, .card-text {
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .card {
-                position: relative; /* Ensure the card is positioned relative for the pseudo-element */
-                outline: none;
-                border: none;
-                transition: 0.3s ease-in-out;
-                box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
-                    -10px -10px 10px rgba(255, 255, 255, 0.8); 
-            }
+            
 
         </style>
 
+        @include('utils.card-article-style')
         @include('utils.content-rich-style')
         
         @livewireStyles

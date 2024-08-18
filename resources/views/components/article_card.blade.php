@@ -1,7 +1,8 @@
 <div class="col">
-    <div class="card h-100">
+    <div class="card article h-100">
         <a href="{{route('articles.show', $article)}}" class="card-clickable-body">
             <div class="img-container">
+                <h5><span class="badge badge-top-right">{{ $article->category->name }}</span></h5>
                 <img src="{{asset($article->getThumbnailUrlAttribute())}}" class="card-img-top img-article" alt="{{$article->slug}}">
             </div>
             <div class="card-body">
@@ -12,7 +13,7 @@
                 {{-- show the tags --}}
                 <div class="d-flex flex-wrap">
                     @foreach ($article->tags->take(5) as $tag)
-                        <span class="badge bg-secondary mr-2">{{ $tag->name }}</span>
+                        <h6><span class="badge bg-secondary mr-2 mb-2">{{ $tag->name }}</span></h6>
                     @endforeach
                 </div>
     
