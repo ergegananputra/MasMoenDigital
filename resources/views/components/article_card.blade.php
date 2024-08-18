@@ -31,7 +31,7 @@
             @auth
                 @if ($article->user_id == Auth::user()->id || Auth::user()->isAdmin())
                     @isset($action)
-                        <a href="{{ route('management.articles.edit', $article->id) }}" class="btn btn-warning">
+                        <a href="{{ route('management.articles.edit', $article) }}" class="btn btn-warning">
                             <i class="bi bi-pencil-square mx-2"></i>
                         </a>
                         <form action="{{ route('management.articles.destroy', $article) }}" method="POST" class="d-inline">

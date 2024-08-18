@@ -25,7 +25,7 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                z-index: 1000; /* Adjust the value as needed */
+                z-index: 500; /* Adjust the value as needed */
                 height: auto; /* Ensure it does not cover the entire viewport */
             }
 

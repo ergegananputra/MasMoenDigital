@@ -7,12 +7,9 @@
     {{-- Add Tailwind Hero Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    {{-- Summernote --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
-
     <style>
         .card-form {
-            margin: 24px;
+            margin: 24px auto;
             padding: 16px 32px;
             background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
             backdrop-filter: blur(10px); /* Apply blur effect */
@@ -22,7 +19,7 @@
         }
 
         .card-form .item {
-            margin: 8px 0;
+            margin: 12px 0;
         }
 
         a.rounded-button{
@@ -68,7 +65,7 @@
             -webkit-filter: blur(60px);
 
             height: 100vh;
-            width: 100%;
+            width: 100vw;
 
             position: fixed;
 
@@ -86,8 +83,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            height: 100vh;
+            width: 100vw;
             background-color: #fcfcfc30; /* Adjust the opacity as needed */
             z-index: 1; /* Ensure the overlay is above the blurred background */
         }
@@ -95,11 +92,33 @@
         .content-section {
             z-index: 1;
             width: 100vw;
-            top: 5vh;
+            top: max(5vh, 50pt);
             position: absolute;
         }
 
 
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            width: 100% !important;
+            min-height: 50px; /* Adjust the height as needed */
+        }
+
+        .fullscreen {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
     </style>
 
@@ -111,6 +130,12 @@
 
     <!-- Include Select2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- Summernote --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+
+    <!-- Include Summernote JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
 @endsection
 
 @section('content')
@@ -232,6 +257,7 @@
                             @isset($article)
                                 value="{{ $article->title }}"
                             @endisset
+                            required
                             >
                     </div>
                 </div>
@@ -240,7 +266,7 @@
                 <div class="form-group row align-items-center item">
                     <label class="col-md-2 col-for-label" for="category">Kategori</label>
                     <div class="col-md-10">
-                        <select name="category" id="category" class="form-control">
+                        <select name="category" id="category" class="form-control" required>
                             <option value="">Pilih Kategori</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
@@ -272,40 +298,37 @@
                 <div class="form-group row align-items-center item">
                     <label class="col-md-2 col-for-label" for="whatsapp_number">Nomor Whatsapp</label>
                     <div class="col-md-10">
-                        <input type="text" name="whatsapp_number" id="whatsapp_number" class="form-control"
-                            placeholder="Tulis nomor whatsapp disini.. (contoh: 62812345678)"
+                        <input type="tel" name="whatsapp_number" id="whatsapp_number" class="form-control"
+                            placeholder="contoh: 62812345678"
                             @isset($article)
                                 value="{{ $article->whatsapp_number }}"
                             @endisset
+                            pattern="[0-9]{10,15}"
                             >
                     </div>
                 </div>
 
-                
                 <div class="form-group row align-items-center item">
-                    {{-- Price --}}
-                    <label class="col-md-2 col-form-label" for="price">Harga</label>
-                    <div class="col-md-7">
-                        <input type="text" name="price" id="price" class="form-control"
-                            placeholder="Tulis harga disini.. (contoh: 1000000)"
-                            @isset($article)
-                                value="{{ $article->price }}"
-                            @endisset
-                            >
-                    </div>
-                
-                    {{-- Unit --}}
-                    <label class="col-md-1 col-form-label" for="unit">per</label>
-                    <div class="col-md-2">
-                        <input type="text" name="unit" id="unit" class="form-control"
-                            placeholder="contoh: unit"
-                            @isset($article)
-                                value="{{ $article->unit }}"
-                            @endisset
-                            >
+                    <label class="col-md-2 col-for-label" for="price">Harga</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <input type="number" name="price" id="price" class="form-control"
+                                placeholder="contoh: 1000000"
+                                @isset($article)
+                                    value="{{ $article->price }}"
+                                @endisset
+                                min="0"
+                                >
+                            <span class="input-group-text">per</span>
+                            <input type="text" name="unit" id="unit" class="form-control"
+                                placeholder="contoh: unit"
+                                @isset($article)
+                                    value="{{ $article->unit }}"
+                                @endisset
+                                >
+                        </div>
                     </div>
                 </div>
-
                 
 
                 {{-- Content --}}
@@ -335,7 +358,7 @@
                 <div class="form-group row align-items-center item">
                     <label class="col-md-2 col-for-label" for="google_maps">Google Maps</label>
                     <div class="col-md-10">
-                        <input type="text" name="google_maps" id="google_maps" class="form-control"
+                        <input type="url" name="google_maps" id="google_maps" class="form-control"
                             placeholder="Tulis link Google Maps disini.."
                             value= @isset($article)
                                 {{$article->google_maps}}
@@ -477,7 +500,7 @@
                 {{-- Tags --}}
                 <div class="form-group col-md-12 item">
                     <label for="tags">Tags</label>
-                    <select name="tags[]" id="tags" class="form-control" multiple>
+                    <select name="tags[]" id="tags" class="form-control w-100" multiple>
                         @foreach ($tags as $tag)
                             @isset($article)
                                 <option value="{{ $tag->id }}" {{ $article->tags->contains($tag->id) ? 'selected' : '' }}>
@@ -496,7 +519,7 @@
                 
                 {{-- Submit --}}
                 <button type="submit" class="btn btn-primary item w-100">
-                    <i class="bi bi-plus-lg mx-2"></i>Unggah Artikel
+                    <i class="bi bi-plus-lg mx-2"></i>@isset($article)Simpan @else Unggah @endisset Artikel
                 </button>
 
                 
@@ -546,7 +569,7 @@
 <script>
     $(document).ready(function() {
         $('#content').summernote({
-            height: 300,
+            height: 500,
             minHeight: 500,
             maxHeight: null,
             focus: true,
