@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h5 class="card-title
                 ">{{ $article->title }}</h5>
-                <p class="card-text">{!! $article->getShortContentAttribute() !!}</p>
+                <p class="card-text flex-grow-1">{!! $article->getShortContentAttribute() !!}</p>
     
                 {{-- show the tags --}}
                 <div class="d-flex flex-wrap">
@@ -22,7 +22,7 @@
     
             </div>
         </a>
-        <div class="card-footer">
+        <div class="card-footer mt-auto">
             {{-- show share button --}}
             <button class="btn btn-secondary" onclick="copyLink('{{ route('articles.show', $article) }}')">
                 <i class="bi bi-share-fill"></i>
