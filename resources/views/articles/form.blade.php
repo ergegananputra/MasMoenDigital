@@ -107,19 +107,6 @@
             min-height: 50px; /* Adjust the height as needed */
         }
 
-        .fullscreen {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background-color: rgb(0, 0, 0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
     </style>
 
     <!-- Include Select2 CSS -->
@@ -134,8 +121,6 @@
     {{-- Summernote --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
 
-    <!-- Include Summernote JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
 @endsection
 
 @section('content')
