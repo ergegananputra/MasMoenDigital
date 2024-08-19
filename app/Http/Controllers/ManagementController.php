@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,13 +16,16 @@ class ManagementController extends Controller
      */
     public function index(Request $request)
     {
+        /** @var User $user */
         $user = Auth::user();
         $category = $request->category;
         $keyword = $request->search;
 
         $query = Article::query();
 
-        $query->where('user_id', $user->id);
+        if (!$user->isAdmin()) {
+            $query->where('user_id', $user->id);
+        }
 
         if (!is_null($category)) {
             $query->orWhere('category_id', $category);

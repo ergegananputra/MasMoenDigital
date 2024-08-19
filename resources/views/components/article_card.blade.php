@@ -37,7 +37,9 @@
                         <form action="{{ route('management.articles.destroy', $article) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Apakah anda ingin menghapus artikel ini?')"
+                                >
                                 <i class="bi bi-trash mx-2"></i>
                             </button>
                         </form>

@@ -10,9 +10,10 @@
     <style>
         .header {
             width: 100vw;
-            height: 50vh;
+            min-height:50vh;
             display: flex;
             align-items: flex-end;
+            padding-top: max(10vh, 100px);
         }
 
         .text-container {
@@ -66,6 +67,11 @@
                 <div class="col-12 col-md-3 icons-button mt-3 mt-md-0 d-flex flex-column">
                     @auth
                         @if (Auth::user()->isAdmin())
+                            <a href="{{route('management.users.index')}}" class="btn side-btn d-flex align-items-center mb-2">
+                                <p class="mb-0">Kelola Pengguna</p>
+                                <i class="bi bi-people"></i>
+                            </a>
+
                             <a href="{{route('management.tags.index')}}" class="btn side-btn d-flex align-items-center mb-2">
                                 <p class="mb-0">Tambah Tag</p>
                                 <i class="bi bi-tag"></i> 

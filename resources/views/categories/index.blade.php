@@ -9,7 +9,8 @@
 
     <style>
         .safezone {
-            padding: 10vh 0vw;
+            padding-top: max(10vh, 100px);
+            padding-bottom: 10vh;
         }
         .text-center {
             text-align: center;

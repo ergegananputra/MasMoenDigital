@@ -503,8 +503,9 @@
                 <br>
                 
                 {{-- Submit --}}
-                <button type="submit" class="btn btn-primary item w-100">
-                    <i class="bi bi-plus-lg mx-2"></i>@isset($article)Simpan @else Unggah @endisset Artikel
+                <button type="submit" class="btn btn-primary item w-100" id="submit-button">
+                    <i class="bi bi-plus-lg mx-2"></i>
+                    @isset($article)Simpan @else Unggah @endisset Artikel
                 </button>
 
                 
@@ -581,6 +582,12 @@
                     });
                 }
             }
+        });
+        $('#submit-button').on('click', function() {
+            var $button = $(this);
+            $button.prop('disabled', true); // Disable the button
+            $button.html('<i class="bi bi-hourglass-split mx-2"></i> Loading...'); // Change button text to loading state
+            $button.closest('form').submit(); // Submit the form
         });
     });
 </script>
