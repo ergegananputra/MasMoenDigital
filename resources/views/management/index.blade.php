@@ -9,7 +9,7 @@
 
     <style>
         .header {
-            width: 100vw;
+            width: 100%;
             min-height:50vh;
             display: flex;
             align-items: flex-end;
@@ -57,7 +57,7 @@
 @section('content')
     <div class="header">
         <div class="container">
-            <div class="row w-100">
+            <div class="row">
                 <div class="text-container col-12 col-md-9">
                     <h1 class="text-4xl font-bold">Kelola Konten</h1>
                     <p class="text-lg">Selamat datang di halaman kelola konten. 

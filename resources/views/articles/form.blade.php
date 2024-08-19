@@ -65,7 +65,7 @@
             -webkit-filter: blur(60px);
 
             height: 100vh;
-            width: 100vw;
+            width: 100%;
 
             position: fixed;
 
@@ -84,14 +84,14 @@
             top: 0;
             left: 0;
             height: 100vh;
-            width: 100vw;
+            width: 100%;
             background-color: #fcfcfc30; /* Adjust the opacity as needed */
             z-index: 1; /* Ensure the overlay is above the blurred background */
         }
 
         .content-section {
             z-index: 1;
-            width: 100vw;
+            width: 100%;
             top: max(5vh, 50pt);
             position: absolute;
         }

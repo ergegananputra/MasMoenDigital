@@ -51,6 +51,11 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
             }
 
+            .footer {
+                background: linear-gradient(to right, #007BFF, #501bef);
+                color: white;
+            }
+
             
 
         </style>
@@ -92,6 +97,27 @@
 
         @stack('scripts')
     </body>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-6 col-md-6 mt-4 col-lg-4 text-center text-sm-start">
+              <h5 class="footer-heading text-uppercase text-white fw-bold">Mas Moen Digital</h5>
+              <p>Hubungi kami jika memerlukan bantuan atau ingin berkolaborasi dengan kami.</p>
+            </div>
+                <div class="col-sm-6 col-md-6 mt-4 col-lg-4 text-center text-sm-start">
+                  <div class="contact">
+                      <h6 class="footer-heading text-uppercase text-white fw-bold">Hubungi</h6>
+                      <a target="_blank" href="mailto:helpdesk@masmoendigital.store" class="text-white mb-1 text-decoration-none d-block fw-semibold"><i class="bi bi-envelope"></i> helpdesk@masmoendigital.store</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center bg-dark text-white mt-4 p-1">
+            <p class="mb-0 fw-bold">2024 © MasMoenDigital, All Rights Reserved</p>
+        </div>
+    </footer>
+
 
     <script>
         function copyLink(url) {
