@@ -9,6 +9,8 @@ use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Middleware\AdminPrivileges;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 Route::get('/beranda', [DashboardController::class, 'index'])->name('dashboard');
@@ -34,4 +36,20 @@ Route::middleware([
 
 
 
+});
+
+Route::get('/sitemap.xml', function () {
+    $sitemap = Sitemap::create()
+        ->add(Url::create('/'))
+        ->add(Url::create('/beranda'))
+        ->add(Url::create('/articles'));
+
+    // Add dynamic URLs for articles
+    $articles = \App\Models\Article::all();
+    foreach ($articles as $article) {
+        $sitemap->add(Url::create("/articles/{$article->slug}"));
+    }
+
+    return response($sitemap->render(), 200)
+        ->header('Content-Type', 'application/xml');
 });
