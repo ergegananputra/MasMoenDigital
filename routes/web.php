@@ -39,6 +39,10 @@ Route::middleware([
 });
 
 Route::get('/sitemap.xml', function () {
+    if (!class_exists(Sitemap::class)) {
+        return response('Sitemap class not found', 500);
+    }
+    
     $sitemap = Sitemap::create()
         ->add(Url::create('/'))
         ->add(Url::create('/beranda'))
