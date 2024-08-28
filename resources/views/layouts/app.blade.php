@@ -12,7 +12,7 @@
 
         <link rel="icon" href="{{asset('image/favicon.png')}}" type="image/x-icon">
 
-        <meta name="google-site-verification" content="__rQbpZqcQNaStkWi3BWLuTNpiKtd0T-C9aUql_f51w" />
+        <meta name="google-site-verification" content="lAextFhJgF-OYH3lCZ2iADCGtk_1L_EMJza6INDkkQI" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
