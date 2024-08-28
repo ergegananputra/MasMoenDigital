@@ -5,7 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} - @yield('title', "All in one solutions!")</title>
+
+        <meta name="description" content="@yield('description', 'Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi 
+                usaha menengah dalam mempublikasikan produk-produknya maupun iklan yang ingin disampaikan. Selain itu website ini juga dapat dijadikan
+                sebagai platform media informasi bagi masyarakat umum.')">
 
         <link rel="icon" href="{{asset('image/favicon.png')}}" type="image/x-icon">
 
