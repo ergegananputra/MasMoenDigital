@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\ResponseJSON;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,5 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->renderable(function (Throwable $e, $request) {
+            if ($request->is('api/*')) {
+                $status = $e->getCode() ?: 500;
+                return ResponseJSON::error($e->getMessage(), $status);
+            } else {
+                throw $e;
+            }
+        });
     })->create();
