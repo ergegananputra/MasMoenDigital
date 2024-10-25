@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPeserta;
-use Illuminate\Http\Request;
 use App\Helpers\ResponseJSON;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\DataPersertaRequest;
-use Intervention\Image\Laravel\Facades\Image;
 
 class DataPesertaController extends Controller
 {
