@@ -15,7 +15,7 @@ class DataPesertaController extends Controller
     public function index()
     {
         try {
-            $data = DataPeserta::all()->sortByDesc('tanggalPendataan');
+            $data = DataPeserta::orderByDesc('tanggalPendataan')->get();
             return ResponseJSON::success($data);
         } catch (\Throwable $th) {
             return ResponseJSON::error("Data peserta tidak ditemukan");
