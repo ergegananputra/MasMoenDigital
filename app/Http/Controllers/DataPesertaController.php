@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPeserta;
+use Illuminate\Http\Request;
 use App\Helpers\ResponseJSON;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\DataPersertaRequest;
+use Illuminate\Validation\ValidationException;
 
 class DataPesertaController extends Controller
 {
@@ -43,7 +45,7 @@ class DataPesertaController extends Controller
 
             $data = DataPeserta::create($request);
             return ResponseJSON::success($data, "Data peserta berhasil ditambahkan");
-        } catch (\Throwable $th) {
+        }catch (\Throwable $th) {
             Log::error($th);
             return ResponseJSON::error("Data peserta gagal ditambahkan");
         }

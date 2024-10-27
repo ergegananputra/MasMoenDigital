@@ -20,4 +20,12 @@ class ResponseJSON
             'message' => $message
         ], $code);
     }
+
+    public static function unauthorized($message = 'Unauthorized', $code = 401)
+    {
+        return response()->json([
+            'status' => 'Unauthorized',
+            'message' => $message
+        ], $code);
+    }
 }
