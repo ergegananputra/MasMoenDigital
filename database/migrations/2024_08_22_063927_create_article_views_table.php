@@ -13,8 +13,21 @@ return new class extends Migration
     {
         Schema::create('article_views', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('article_id');
+            $table->foreign('article_id')
+                ->references('id')
+                ->on('articles')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+            $table->string('ip_address')->nullable();
+
             $table->timestamps();
-            
+
+            $table->unique(['article_id', 'user_id', 'ip_address']);
         });
     }
 

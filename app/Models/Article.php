@@ -91,5 +91,10 @@ class Article extends Model
         return substr($cleanTextWithoutHTML, 0, 100) . '...';
     }
 
+    public function viewsCount()
+    {
+        return $this->hasMany(ArticleViews::class)->count();
+    }
+
 
 }

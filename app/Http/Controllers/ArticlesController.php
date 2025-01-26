@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleViews;
 use App\Models\Category;
 use App\Models\Tag;
 use HTMLPurifier;
@@ -189,9 +190,20 @@ class ArticlesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $slug)
+    public function show(Request $request, string $slug)
     {
         $article = Article::where('slug', $slug)->first();
+
+        try {
+            ArticleViews::create([
+                'article_id' => $article->id,
+                'user_id' => Auth::id(),
+                'ip_address' => $request->getClientIp(),
+            ]);
+        } catch (\Exception $e) {
+            Log::error(__METHOD__ . ' - ' . $e->getMessage());
+        }
+
         return view('articles.show', compact('article'));
     }
 

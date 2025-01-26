@@ -132,6 +132,9 @@
                     @if($article->created_at != $article->updated_at), Edited {{$article->updated_at->diffForHumans()}}@endif
                 </p>
 
+                <!-- Show view -->
+                <p class="text-muted mb-2"><i class="bi bi-eye-fill mr-3"></i>{{ $article->viewsCount() ?? 0 }} views</p>
+
                 {{-- Show content --}}
                 <div class="content-rich">
                     <p>{!! $article->content !!}</p>
@@ -173,7 +176,7 @@
                 {{-- Card about the author --}}
                 <div class="card personalize-card">
                     <div class="card-body">
-                        <h5 class="card-title">Author</h5>
+                        <h5 class="card-title"><i class="bi bi-person-fill mr-2"></i>Author</h5>
                         <p class="card-text">{{ $article->user->name }}</p>
                         {{-- show share button --}}
                         <button class="btn btn-secondary" onclick="copyLink('{{ route('articles.show', $article) }}')">
