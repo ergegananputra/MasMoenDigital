@@ -214,6 +214,17 @@
                                     <!-- Image preview will be inserted here -->
                                 </div>
                             </div>
+
+                            @if ($errors->has('thumbnail'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('thumbnail') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                         </div>
 
                         <script type="text/javascript">
@@ -284,6 +295,16 @@
                                     required
                                     >
                             </div>
+
+                            @if ($errors->has('title'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('title') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         {{-- Category --}}
@@ -303,6 +324,16 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            @if ($errors->has('category'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('category') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -331,6 +362,16 @@
                                     @endisset
                                     >
                             </div>
+
+                            @if ($errors->has('whatsapp_name'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('whatsapp_name') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         {{-- WhatsappNumber --}}
@@ -345,6 +386,16 @@
                                     pattern="[0-9]{10,15}"
                                     >
                             </div>
+
+                            @if ($errors->has('whatsapp_number'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('whatsapp_number') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group row align-items-center item">
@@ -367,6 +418,16 @@
                                         >
                                 </div>
                             </div>
+
+                            @if ($errors->has('price'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('price') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                     </div>
@@ -383,9 +444,21 @@
                 {{-- Content --}}
                 <div class="form-group col-md-12 item row content-rich">
                     <div class="col-md-12">
-                        <textarea name="content" id="content" class="form-control"
-                            >@isset($article){{ $article->content }}@endisset</textarea>
+                        <textarea name="content" id="content" class="form-control">
+                            @isset($article){{ $article->content }}
+                            @endisset
+                        </textarea>
                     </div>
+
+                    @if ($errors->has('content'))
+                        <div class="text-danger">
+                            <ul>
+                                @foreach ($errors->get('content') as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="section" x-data="{ open: false }">
@@ -404,9 +477,21 @@
                         {{-- Address --}}
                         <div class="form-group col-md-12 item row">
                             <div class="col-md-12">
-                                <textarea placeholder="Alamat" name="address" id="address" class="form-control"
-                                >@isset($article){{ $article->address }}@endisset</textarea>
+                                <textarea placeholder="Alamat" name="address" id="address" class="form-control">
+                                    @isset($article){{ $article->address }}
+                                    @endisset
+                                </textarea>
                             </div>
+
+                            @if ($errors->has('address'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('address') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         {{-- Google Maps --}}
@@ -420,6 +505,16 @@
                                     @endisset
                                     >
                             </div>
+
+                            @if ($errors->has('google_maps'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('google_maps') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                         {{-- Google Maps Embeded --}}
@@ -433,6 +528,16 @@
                                     @endisset
                                     >
                             </div>
+
+                            @if ($errors->has('google_maps_embeded'))
+                                <div class="text-danger">
+                                    <ul>
+                                        @foreach ($errors->get('google_maps_embeded') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
 
                     </div>
@@ -579,6 +684,18 @@
                             </select>
                         </div>
                     </div>
+
+                    @if ($errors->has('tags'))
+                        <div class="text-danger">
+                            <ul>
+                                @foreach ($errors->get('tags') as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
                 </div>
 
                 {{-- Submit --}}
@@ -604,24 +721,6 @@
                 tokenSeparators: [',', ' ']
             });
         });
-    </script>
-
-    @if ($errors->any())
-    <div id="error-popup" style="display: none;">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    <script>
-    window.addEventListener('load', function() {
-        @if ($errors->any())
-            alert("There are errors in the form:\n\n{{ implode('\n', $errors->all()) }}");
-        @endif
-    });
     </script>
 
 </div>
