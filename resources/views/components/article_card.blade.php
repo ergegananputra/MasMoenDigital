@@ -9,17 +9,24 @@
                 <h5 class="card-title
                 ">{{ $article->title }}</h5>
                 <p class="card-text flex-grow-1">{!! $article->getShortContentAttribute() !!}</p>
-    
+
                 {{-- show the tags --}}
                 <div class="d-flex flex-wrap">
                     @foreach ($article->tags->take(5) as $tag)
                         <h6><span class="badge bg-secondary mr-2 mb-2">{{ $tag->name }}</span></h6>
                     @endforeach
                 </div>
-    
+
                 {{-- show the date --}}
-                <p class="card-text mt-2"><small class="text-muted">{{ $article->created_at->diffForHumans() }}</small></p>
-    
+                <div class="row mt-2">
+                    <div class="col">
+                        <p class="card-text"><small class="text-muted">{{ $article->created_at->diffForHumans() }}</small></p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="card-text"><small class="text-muted"><i class="bi bi-eye-fill mx-2"></i>{{ $article->viewsCount() ?? 0 }} views</small></p>
+                    </div>
+                </div>
+
             </div>
         </a>
         <div class="card-footer mt-auto">
@@ -49,7 +56,7 @@
 
             {{-- Show Author --}}
             <div class="btn">
-                <i class="bi bi-person"></i> <small>{{ $article->user->name }} </small> 
+                <i class="bi bi-person"></i> <small>{{ $article->user->name }} </small>
             </div>
 
         </div>

@@ -74,8 +74,8 @@
             backdrop-filter: blur(10px); /* Blur effect */
             border-radius: 8px; /* Optional: Add rounded corners to clock items */
             margin: 6px; /* Add margin to create gutter between items */
-            box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
-                -10px -10px 10px rgba(255, 255, 255, 0.8); 
+            box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1),
+                -10px -10px 10px rgba(255, 255, 255, 0.8);
 
             transition: all 0.6s;
         }
@@ -84,14 +84,14 @@
             background: linear-gradient(30deg, #007BFF, #501bef);
             color: white;
             border: none;
-            
+
             transition: 0.6s;
         }
 
         .btn-register:hover {
             opacity: 0.8;
-            box-shadow: 12px 12px 12px rgba(53, 83, 170, 0.5), 
-                -10px -10px 10px rgba(255, 255, 255, 0.8); 
+            box-shadow: 12px 12px 12px rgba(53, 83, 170, 0.5),
+                -10px -10px 10px rgba(255, 255, 255, 0.8);
             /* drop shadow */
             transition: all 0.6s;
         }
@@ -100,7 +100,7 @@
             background-color: transparent; /* Remove background color */
             color: #501bef; /* Set text color to the desired color */
             border: 2px solid #501bef; /* Add border with the desired color */
-            
+
             transition: 0.6s;
         }
 
@@ -121,24 +121,37 @@
     </style>
 @endsection
 
+@php
+    // get current time
+    $currentTime = now();
+    $currentTime->setTimezone('Asia/Jakarta');
+
+    $hour = $currentTime->format('H');
+    $minute = $currentTime->format('i');
+    $second = $currentTime->format('s');
+@endphp
+
 @section('content')
     <div class="container safezone">
-       
+
         <div class="header d-flex flex-column align-items-center">
             <h1 class="display-1 text-header">MasMoenDigital<span class="header-black">.store</span></h1>
             <p class="text-body-header my-2">
-                Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi 
+                Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi
                 usaha menengah dalam mempublikasikan produk-produknya maupun iklan yang ingin disampaikan. Selain itu website ini juga dapat dijadikan
                 sebagai platform media informasi bagi masyarakat umum.
             </p>
 
             <div class="d-flex justify-content-center align-items-center">
                 <div id="clock" class="clock display-1 d-flex flex-row g-3">
-                    <div class="clock-item" id="clock-hours"></div>
-                    <div class="clock-item" id="clock-minutes"></div>
-                    <div class="clock-item" id="clock-seconds"></div>
+                    <div class="clock-item" id="clock-hours">{{$hour}}</div>
+                    <div class="clock-item" id="clock-minutes">{{$minute}}</div>
+                    <div class="clock-item" id="clock-seconds">{{$second}}</div>
                 </div>
             </div>
+
+            <!-- Total Pengunjung -->
+            <p class="text-body-header mt-4 text-muted">Total Pengunjung: <b>{{ $totalVisitors }}</b></p>
 
             @auth
                 <a href="#artikel-terkini" class="btn btn-login mmd-button">Jelajahi Sekarang!</a>
@@ -151,11 +164,11 @@
                 </div>
             @endauth
 
-            
-            
+
+
         </div>
 
-        
+
         <h2 id="artikel-terkini">Artikel Terkini</h2>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -175,9 +188,9 @@
             const minutes = document.getElementById('clock-minutes');
             const seconds = document.getElementById('clock-seconds');
             // clock.innerText = now.toLocaleString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
-            hours.innerText = now.toLocaleString('id-ID', {hour: 'numeric'});
-            minutes.innerText = now.toLocaleString('id-ID', {minute: 'numeric'});
-            seconds.innerText = now.toLocaleString('id-ID', {second: 'numeric'});
+            hours.innerText = now.toLocaleString('id-ID', {hour: 'numeric'}).toString().padStart(2, '0');
+            minutes.innerText = now.toLocaleString('id-ID', {minute: 'numeric'}).toString().padStart(2, '0');
+            seconds.innerText = now.toLocaleString('id-ID', {second: 'numeric'}).toString().padStart(2, '0');
         }
 
         setInterval(updateClock, 1000);

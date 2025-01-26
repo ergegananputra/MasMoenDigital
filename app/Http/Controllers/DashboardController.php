@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleViews;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +15,8 @@ class DashboardController extends Controller
     {
         $latestArticles = Article::latest()->limit(6)->get();
 
-        return view('dashboard.index', compact('latestArticles'));
+        $totalVisitors = ArticleViews::count();
+        return view('dashboard.index', compact('latestArticles', 'totalVisitors'));
     }
 
     /**
