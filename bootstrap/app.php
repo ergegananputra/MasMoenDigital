@@ -30,8 +30,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 }
 
                 return ResponseJSON::error($e->getMessage(), $status);
-            } else {
-                throw $e;
             }
         });
     })->create();

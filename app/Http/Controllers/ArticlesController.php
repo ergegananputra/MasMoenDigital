@@ -51,12 +51,8 @@ class ArticlesController extends Controller
         return view('articles.form', compact('tags', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validator = $request->validate([
+    private function validate(Request $request) {
+        $rules = [
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'title' => 'required',
             'category' => 'required|exists:categories,id',
@@ -68,13 +64,44 @@ class ArticlesController extends Controller
             'address' => 'nullable|string',
             'google_maps' => 'nullable|string',
             'google_maps_embeded' => 'nullable|string',
-        ]);
+        ];
+
+        $photos = $request->file('photos');
+        if ($photos != null) {
+            $rules['photos.*'] = 'image|mimes:jpeg,png,jpg,gif,svg';
+        }
+
+        $tags = $request->tags;
+        if ($tags != null) {
+            $rules['tags.*'] = 'string';
+        }
+
+        $result = $request->validate($rules);
+
+        // sanitize the content
+        $result['content'] = $this->purify($result['content']);
+        if ($tags != null) {
+            $result['tags'] = array_map(function($tag) {
+                return $this->purify($tag);
+            }, $tags);
+        }
+
+
+        return $result;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validator = (object) $this->validate($request);
 
         // get all photos from the request
         $photos = $request->file('photos');
 
         // get all tags from the request
-        $tags = $request->tags;
+        $tags = $validator->tags;
 
         // saving the thumbnail
         $thumbnail = $request->file('thumbnail');
@@ -96,7 +123,7 @@ class ArticlesController extends Controller
             $embed_gmaps_link = "";
         }
 
-        $clean_content = $this->purify($request->content);
+        $clean_content = $validator->content;
 
         // saving the article
         $article = Article::create([
@@ -187,25 +214,13 @@ class ArticlesController extends Controller
     {
         $article = Article::where('slug', $slug)->first();
 
-        $validator = $request->validate([
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            'title' => 'required',
-            'category' => 'required|exists:categories,id',
-            'whatsapp_name' => 'required|string',
-            'whatsapp_number' => 'required|numeric',
-            'content' => 'required',
-            'price' => 'required|numeric',
-            'unit' => 'required|string',
-            'address' => 'nullable|string',
-            'google_maps' => 'nullable|string',
-            'google_maps_embeded' => 'nullable|string',
-        ]);
+        $validator = (object) $this->validate($request);
 
         // get all photos from the request
         $photos = $request->file('photos');
 
         // get all tags from the request
-        $tags = $request->tags;
+        $tags = $validator->tags;
 
         // saving the thumbnail
 
@@ -244,7 +259,7 @@ class ArticlesController extends Controller
             $article->slug = $this->slugify($request->title);
         }
 
-        $clean_content = $this->purify($request->content);
+        $clean_content = $validator->content;
 
         // saving the article
         $article->content = $clean_content;

@@ -16,10 +16,14 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->text('content');
+
+            // Payment Info
             $table->string('whatsapp_name')->nullable();
             $table->string('whatsapp_number')->nullable();
             $table->decimal('price', 32, 2)->nullable();
             $table->string('unit')->nullable();
+
+            
             $table->string('address')->nullable();
             $table->string('google_maps')->nullable();
             $table->text('google_maps_embed')->nullable();
