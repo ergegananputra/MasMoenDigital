@@ -84,9 +84,9 @@
         }
 
         img.media-photo {
-            /* make it ratio 11/10 */
             width: 100%;
             aspect-ratio: 11/10;
+            border-radius: 11px;
         }
     </style>
 
@@ -99,7 +99,7 @@
 @section('content')
     <div class="header">
         <div class="image-container">
-            <img src="{{ asset($article->getThumbnailUrlAttribute()) }}" alt="{{$article->title}}" 
+            <img src="{{ asset($article->getThumbnailUrlAttribute()) }}" alt="{{$article->title}}"
                 class="img-fluid banner"
                 >
 
@@ -111,10 +111,10 @@
             </div>
         </div>
     </div>
-    
-        
+
+
     <div class="container">
-    
+
         <div class="row w-100 mb-4">
             <div class="col-md-8">
                 {{-- Show Category and tags --}}
@@ -124,7 +124,7 @@
                         <span class="badge bg-secondary mr-2">{{ $tag->name }}</span>
                     @endforeach
                 </div>
-        
+
                 <h1>{{ $article->title }}</h1>
 
                 {{-- Show date --}}
@@ -142,18 +142,18 @@
                     <h3>Lokasi</h3>
 
                     {{-- Open in google maps --}}
-                    
+
 
                     <p>{{$article->address}}</p>
 
                     @if($article->google_maps_embed != null)
-                        <iframe 
-                            src="{{$article->google_maps_embed}}" 
-                            width="max" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="true" 
-                            loading="lazy" 
+                        <iframe
+                            src="{{$article->google_maps_embed}}"
+                            width="max"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen="true"
+                            loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"
                             class="w-100"
                             >
@@ -165,10 +165,10 @@
                             <i class="bi bi-geo-alt mx-2"></i>Buka di Google Maps
                         </a>
                     @endif
-                
+
                 @endif
             </div>
-        
+
             <div class="col-md-4">
                 {{-- Card about the author --}}
                 <div class="card personalize-card">
@@ -198,18 +198,18 @@
                             @endif
                         @endauth
 
-                        
 
-                        <p class="card-text mt-2">Untuk melakukan penawaran Anda dapat menghubungi kontak dibawah ini melalui Whatsapp.</p>
+                        @if ($article->whatsapp_number != null && $article->whatsapp_name != null)
+                            <p class="card-text mt-2">Untuk melakukan penawaran Anda dapat menghubungi kontak dibawah ini melalui Whatsapp.</p>
 
-                        <div class="card-text">
-                            {{-- Article Contact Whatsapp --}}
-                            @if ($article->whatsapp_number != null && $article->whatsapp_name != null)
+                            <div class="card-text">
+                                {{-- Article Contact Whatsapp --}}
                                 <a target="_blank" href="{{$article->getWhatsappLinkAttribute()}}" class="btn btn-success mb-2 w-100">
                                     <i class="bi bi-whatsapp mx-2"></i>Hubungi narahubung {{ $article->whatsapp_name }}
                                 </a>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
 
@@ -232,12 +232,12 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach ($article->images as $photo)
                 <div class="col">
-                    <a href="{{asset($photo->path)}}" 
-                        data-lightbox="image-1" 
+                    <a href="{{asset($photo->path)}}"
+                        data-lightbox="image-1"
                         data-title="{{$photo->name}}"
                         >
-                        <img 
-                            src="{{asset($photo->path)}}" 
+                        <img
+                            src="{{asset($photo->path)}}"
                             class="d-block w-100 media-photo"
                             alt="{{$photo->name}}">
                     </a>
@@ -249,5 +249,5 @@
         <br>
 
     </div>
-    
+
 @endsection
