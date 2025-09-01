@@ -87,6 +87,15 @@ class ArticlesController extends Controller
             }, $tags);
         }
 
+        // Always set tags as array
+        if ($tags != null) {
+            $result['tags'] = array_map(function($tag) {
+                return $this->purify($tag);
+            }, $tags);
+        } else {
+            $result['tags'] = []; // <-- Ensure tags is always set
+        }
+
 
         return $result;
     }
