@@ -24,3 +24,4 @@ frankenphp
 frankenphp-worker.php
 backup_db_app.sql
 tmp.sql
+public/ads.txt

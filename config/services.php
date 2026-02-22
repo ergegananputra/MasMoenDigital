@@ -40,4 +40,13 @@ return [
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
+    'adsense' => [
+        'client_id' => env('ADSENSE_CLIENT_ID'), // e.g., ca-pub-1234567890123456
+        'slots' => [
+            'default' => env('ADSENSE_SLOT_DEFAULT'),
+            'article-list' => env('ADSENSE_SLOT_ARTICLE_LIST'),
+            'article-sidebar' => env('ADSENSE_SLOT_ARTICLE_SIDEBAR'),
+        ],
+    ],
+
 ];

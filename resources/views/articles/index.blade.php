@@ -77,8 +77,13 @@
             
         
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach ($articles as $article)
+                @foreach ($articles as $index => $article)
                     @include('components.article_card', ['article' => $article])
+                    
+                    {{-- Insert ad every 5 articles --}}
+                    @if(($index + 1) % 5 === 0 && !$loop->last)
+                        @include('components.ad-slot', ['slot' => 'article-list'])
+                    @endif
                 @endforeach
             </div>
 

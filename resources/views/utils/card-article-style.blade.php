@@ -67,4 +67,22 @@
         box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
             -10px -10px 10px rgba(255, 255, 255, 0.8); 
     }
+
+    /* Ad card - matches article card styling */
+    .card.ad-card {
+        position: relative;
+        outline: none;
+        border: none;
+        transition: 0.3s ease-in-out;
+        box-shadow: 12px 12px 12px rgba(76, 73, 73, 0.1), 
+            -10px -10px 10px rgba(255, 255, 255, 0.8);
+        min-height: 280px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .card.ad-card .adsbygoogle {
+        width: 100%;
+        min-height: 250px;
+    }
 </style>
