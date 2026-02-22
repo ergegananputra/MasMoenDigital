@@ -14,6 +14,45 @@
 
         <meta name="google-site-verification" content="lAextFhJgF-OYH3lCZ2iADCGtk_1L_EMJza6INDkkQI" />
 
+        <!-- Canonical URL -->
+        <link rel="canonical" href="@yield('canonical', request()->url())">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="@yield('og_type', 'website')">
+        <meta property="og:url" content="@yield('og_url', request()->url())">
+        <meta property="og:title" content="{{ config('app.name', 'MasMoenDigital') }} - @yield('title', 'All in one solutions!')">
+        <meta property="og:description" content="@yield('description', 'Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi usaha menengah dalam mempublikasikan produk-produknya maupun iklan yang ingin disampaikan.')">
+        <meta property="og:image" content="@yield('og_image', asset('image/favicon.png'))">
+        <meta property="og:site_name" content="MasMoenDigital">
+        <meta property="og:locale" content="id_ID">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="@yield('og_url', request()->url())">
+        <meta name="twitter:title" content="{{ config('app.name', 'MasMoenDigital') }} - @yield('title', 'All in one solutions!')">
+        <meta name="twitter:description" content="@yield('description', 'Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi usaha menengah dalam mempublikasikan produk-produknya maupun iklan yang ingin disampaikan.')">
+        <meta name="twitter:image" content="@yield('og_image', asset('image/favicon.png'))">
+
+        <!-- JSON-LD Structured Data -->
+        @hasSection('json_ld')
+            @yield('json_ld')
+        @else
+            <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "MasMoenDigital",
+                "url": "https://masmoendigital.com",
+                "logo": "{{ asset('image/favicon.png') }}",
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "helpdesk@masmoendigital.com",
+                    "contactType": "customer service"
+                }
+            }
+            </script>
+        @endif
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -113,13 +152,13 @@
                 <div class="col-sm-6 col-md-6 mt-4 col-lg-4 text-center text-sm-start">
                   <div class="contact">
                       <h6 class="footer-heading text-uppercase text-white fw-bold">Hubungi</h6>
-                      <a target="_blank" href="mailto:helpdesk@masmoendigital.store" class="text-white mb-1 text-decoration-none d-block fw-semibold"><i class="bi bi-envelope"></i> helpdesk@masmoendigital.store</a>
+                      <a target="_blank" href="mailto:helpdesk@masmoendigital.com" class="text-white mb-1 text-decoration-none d-block fw-semibold"><i class="bi bi-envelope"></i> helpdesk@masmoendigital.com</a>
                   </div>
                 </div>
             </div>
         </div>
         <div class="text-center bg-dark text-white mt-4 p-1">
-            <p class="mb-0 fw-bold">2024 © MasMoenDigital, All Rights Reserved</p>
+            <p class="mb-0 fw-bold">2026 © MasMoenDigital, All Rights Reserved</p>
         </div>
     </footer>
 

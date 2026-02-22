@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /management
+Disallow: /profile
+Disallow: /api
+
+Sitemap: https://masmoendigital.com/sitemap.xml

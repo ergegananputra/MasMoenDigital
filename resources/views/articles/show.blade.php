@@ -1,7 +1,67 @@
 @extends('layouts.app')
 
 @section("title", $article->title)
-@section("description", strip_tags(html_entity_decode($article->content)))
+@section("description", Str::limit(strip_tags(html_entity_decode($article->content)), 160))
+@section("og_type", "article")
+@section("og_image", $article->thumbnail_url)
+@section("canonical", route('articles.show', $article))
+@section("og_url", route('articles.show', $article))
+
+@section('json_ld')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ $article->title }}",
+    "description": "{{ Str::limit(strip_tags(html_entity_decode($article->content)), 160) }}",
+    "image": "{{ $article->thumbnail_url }}",
+    "datePublished": "{{ $article->created_at->toIso8601String() }}",
+    "dateModified": "{{ $article->updated_at->toIso8601String() }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ $article->user->name ?? 'MasMoenDigital' }}"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "MasMoenDigital",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ asset('image/favicon.png') }}"
+        }
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ route('articles.show', $article) }}"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Beranda",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Artikel",
+            "item": "{{ route('articles.index') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ $article->title }}",
+            "item": "{{ route('articles.show', $article) }}"
+        }
+    ]
+}
+</script>
+@endsection
 
 @section('head-style')
 

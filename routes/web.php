@@ -44,14 +44,19 @@ Route::get('/sitemap.xml', function () {
     }
     
     $sitemap = Sitemap::create()
-        ->add(Url::create('/'))
-        ->add(Url::create('/beranda'))
-        ->add(Url::create('/articles'));
+        ->add(Url::create(url('/')))
+        ->add(Url::create(url('/beranda')))
+        ->add(Url::create(url('/articles')));
 
-    // Add dynamic URLs for articles
-    $articles = \App\Models\Article::all();
+    // Add dynamic URLs for articles with lastmod
+    $articles = \App\Models\Article::where('is_active', true)->get();
     foreach ($articles as $article) {
-        $sitemap->add(Url::create("/articles/{$article->slug}"));
+        $sitemap->add(
+            Url::create(route('articles.show', $article))
+                ->setLastModificationDate($article->updated_at)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                ->setPriority(0.8)
+        );
     }
 
     return response($sitemap->render(), 200)

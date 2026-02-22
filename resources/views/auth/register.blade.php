@@ -9,6 +9,11 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            <!-- Honeypot field - hidden from users, bots will fill it -->
+            <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off" value="">
+            </div>
+
             <div>
                 <x-label for="name" value="{{ __('Name') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
@@ -44,6 +49,17 @@
                         </div>
                     </x-label>
                 </div>
+            @endif
+
+            <!-- Google reCAPTCHA -->
+            @if(config('services.recaptcha.site_key'))
+                <div class="mt-4">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    @error('g-recaptcha-response')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             @endif
 
             <div class="flex items-center justify-end mt-4">

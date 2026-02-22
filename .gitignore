@@ -18,3 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+**/caddy
+frankenphp
+frankenphp-worker.php
+backup_db_app.sql
+tmp.sql

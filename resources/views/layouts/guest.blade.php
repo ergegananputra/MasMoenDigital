@@ -5,7 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'MasMoenDigital') }}</title>
+        <meta name="description" content="Masuk atau daftar ke MasMoenDigital untuk mempublikasikan produk dan iklan Anda.">
+        <meta name="robots" content="noindex, nofollow">
+
+        <link rel="icon" href="{{ asset('image/favicon.png') }}" type="image/x-icon">
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="{{ config('app.name', 'MasMoenDigital') }}">
+        <meta property="og:description" content="Masuk atau daftar ke MasMoenDigital untuk mempublikasikan produk dan iklan Anda.">
+        <meta property="og:image" content="{{ asset('image/favicon.png') }}">
+        <meta property="og:site_name" content="MasMoenDigital">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

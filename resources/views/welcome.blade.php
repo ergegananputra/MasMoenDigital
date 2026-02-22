@@ -2,9 +2,44 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="widt`h=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>MasMoenDigital - Platform Publikasi UMKM Indonesia</title>
+        <meta name="description" content="Selamat datang di MasMoenDigital, platform yang didirikan untuk memberikan kemudahan bagi usaha menengah dalam mempublikasikan produk dan iklan.">
+
+        <link rel="icon" href="{{ asset('image/favicon.png') }}" type="image/x-icon">
+        <link rel="canonical" href="{{ url('/') }}">
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:title" content="MasMoenDigital - Platform Publikasi UMKM Indonesia">
+        <meta property="og:description" content="Selamat datang di MasMoenDigital, platform yang didirikan untuk memberikan kemudahan bagi usaha menengah dalam mempublikasikan produk dan iklan.">
+        <meta property="og:image" content="{{ asset('image/favicon.png') }}">
+        <meta property="og:site_name" content="MasMoenDigital">
+        <meta property="og:locale" content="id_ID">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="MasMoenDigital - Platform Publikasi UMKM Indonesia">
+        <meta name="twitter:description" content="Selamat datang di MasMoenDigital, platform yang didirikan untuk memberikan kemudahan bagi usaha menengah dalam mempublikasikan produk dan iklan.">
+        <meta name="twitter:image" content="{{ asset('image/favicon.png') }}">
+
+        <!-- JSON-LD -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "MasMoenDigital",
+            "url": "https://masmoendigital.com",
+            "logo": "{{ asset('image/favicon.png') }}",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "helpdesk@masmoendigital.store",
+                "contactType": "customer service"
+            }
+        }
+        </script>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

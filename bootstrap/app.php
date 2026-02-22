@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'api-key-data-peserta' => \App\Http\Middleware\DataPesertaApisMiddleware::class
         ]);
+	$middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (Throwable $e, $request) use ($exceptions) {

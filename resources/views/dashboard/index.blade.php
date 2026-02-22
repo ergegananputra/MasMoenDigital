@@ -135,7 +135,7 @@
     <div class="container safezone">
 
         <div class="header d-flex flex-column align-items-center">
-            <h1 class="display-1 text-header">MasMoenDigital<span class="header-black">.store</span></h1>
+            <h1 class="display-1 text-header">MasMoenDigital<span class="header-black">.com</span></h1>
             <p class="text-body-header my-2">
                 Selamat datang di MasMoenDigital, website ini merupakan website yang didirikan untuk memberikan kemudahan bagi
                 usaha menengah dalam mempublikasikan produk-produknya maupun iklan yang ingin disampaikan. Selain itu website ini juga dapat dijadikan
